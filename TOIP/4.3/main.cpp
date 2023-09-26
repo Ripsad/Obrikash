@@ -41,9 +41,7 @@ int main()
             if(!number)
                 resultString += string[i];
             else {
-                std::string numInBin{convertToBin(number)};
-               
-                resultString += numInBin;
+                resultString += convertToBin(number);
                 number = 0;
                 resultString += string[i];
             }
@@ -53,7 +51,7 @@ int main()
     }
     if(number) resultString += convertToBin(number);
     outputFile << resultString;
-
+    outputFile.close();
     return 0;
      
 }
