@@ -1,5 +1,17 @@
 #include <iostream>
 #include <fstream>
+
+std::string convertToBin(int number)
+{
+    std::string numInBin;
+     while(number > 0) {
+        int remainder{number % 2};
+        numInBin = std::to_string(remainder) + numInBin;
+        number /= 2;
+        }
+    return numInBin;
+}
+
 int main()
 {
     std::ifstream inputFile("input.txt"); 
@@ -9,40 +21,39 @@ int main()
     std::getline(inputFile, string);
     inputFile.close();
     std::string resultString;
+    int number{0};
     for(int i{0}; i < string.length(); ++i) {
         switch(string[i])
         {
+            case '1':
             case '2':
-                resultString += "10";
-                break;
             case '3':
-                resultString += "11";
-                break;
             case '4':
-                resultString += "100";
-                break;
             case '5':
-                resultString += "101";
-                break;
             case '6':
-                resultString += "110";
-                break;
             case '7':
-                resultString += "111";
-                break;
             case '8':
-                resultString += "1000";
-                break;
             case '9':
-                resultString += "1001";
-                break;
+                if(number) number *= 10;
+                number += static_cast<int>(string[i] - '0');
+                continue;
             default:
+            if(!number)
                 resultString += string[i];
-                break;
+            else {
+                std::string numInBin{convertToBin(number)};
+               
+                resultString += numInBin;
+                number = 0;
+                resultString += string[i];
+            }
+            break;
         }
+        
     }
-    
+    if(number) resultString += convertToBin(number);
     outputFile << resultString;
+
     return 0;
      
 }
