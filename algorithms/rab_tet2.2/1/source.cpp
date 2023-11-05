@@ -1,16 +1,21 @@
 #include <iostream>
 
+int biba_i_boba(int a, int b, int c)
+{
+    if (c <= 1)
+        return a;
+    if (c == 2)
+        return b;
+
+    return biba_i_boba(a, b, c - 1) * biba_i_boba(a, b, c - 2);
+
+}
+
 int main()
 {
-    int num{};
-    std::cin >> num;
-	if (num <= 0) { 
-		std::cout << '0';
-    	return 0;
-        }
-    bool isPower{ (num & (num - 1)) == 0 };
-    if (isPower) std::cout << '1';
-    else std::cout << '0';
+    int a, b, c;
+    std::cin >> a >> b >> c;
 
+    std::cout << biba_i_boba(a, b, c);
     return 0;
 }
